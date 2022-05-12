@@ -1,0 +1,25 @@
+name: call me may be
+on:
+  workflow_call:
+    inputs:
+      specific-version:
+        required: false
+        default: 'lts/*'
+        type: string
+
+jobs:
+  run-call-me-may-be:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name : setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{inputs.specific-version}}
+      - name: run test
+        shell: bash
+        run: |
+          node -v
+          npm install
+          npm test
